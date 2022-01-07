@@ -13,6 +13,7 @@
         v-for="card in getCards(status.id)"
         :id="`card_${card.id}`"
         :key="card.id"
+        @delete="handleCardDelete"
       >
         {{ card.name }}
       </card>
@@ -63,6 +64,11 @@ export default Vue.extend({
       }
       this.$store.dispatch('card/addCards', tempObj)
       this.$store.dispatch('card/getCards')
+    },
+    handleCardDelete (e) {
+      let cardId = e.split('_')[1]
+      cardId = parseInt(cardId)
+      this.$store.dispatch('card/removeCards', cardId)
     },
     handleCloseClick () {
       console.log('close')

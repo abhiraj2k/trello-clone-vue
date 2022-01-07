@@ -8,6 +8,9 @@
     @dragend.prevent="dragStop"
   >
     <slot />
+    <div class="close">
+      <font-awesome-icon icon="times" @click="$emit('delete', id)" />
+    </div>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
       }, 0)
     },
     dragStop: (e) => {
-      e.target.style.display = 'block'
+      e.target.style.display = 'flex'
     }
   }
 }
@@ -48,6 +51,7 @@ export default {
   border-radius: 6px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
   box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.2);
   cursor: pointer;

@@ -30,7 +30,6 @@ export const actions = {
   async removeCards ({ commit }, id) {
     try {
       const res = await axios.delete(`http://localhost:3000/cards/${id}`)
-      console.log(res.data)
       commit('removeCards', id)
     } catch (err) {
       console.log(err)

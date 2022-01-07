@@ -2,17 +2,17 @@
   <div class="status">
     <div class="status__head">
       <div class="status__name-count">
-        <div class="status__name">
+        <span class="status__name">
           {{ name }}
-        </div>
+        </span>
       </div>
       <div class="status__details-add">
-        <div class="status__details">
+        <!-- <div class="status__details">
           <font-awesome-icon icon="ellipsis-h" />
         </div>
         <div class="status__add">
           <font-awesome-icon icon="plus" />
-        </div>
+        </div> -->
       </div>
     </div>
     <div
@@ -54,7 +54,7 @@ export default {
     drop (e) {
       const cardId = e.dataTransfer.getData('card_id')
       const card = document.getElementById(cardId)
-      card.style.display = 'block'
+      card.style.display = 'flex'
       e.target.appendChild(card)
       const statusId = e.target.id.split('_')[1]
       this.$store.commit('card/changeStatus', { cardId, statusId })
@@ -80,6 +80,12 @@ export default {
     margin: 5px;
     .status__name-count {
       display: flex;
+      .status__name {
+        background-color: #ae00ff;
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: white;
+      }
     }
     .status__details-add {
       display: flex;
