@@ -10,6 +10,7 @@ export const mutations = {
 
   addCards (state, cards) {
     state.cards.push(cards)
+    return state
   },
 
   removeCards (state, id) {
@@ -28,9 +29,7 @@ export const mutations = {
 export const actions = {
   async removeCards ({ commit }, id) {
     try {
-      const res = await axios.delete(
-        `https://my-json-server.typicode.com/abhiraj2k/trello-clone-vue/cards/${id}`
-      )
+      const res = await axios.delete(`http://localhost:3000/cards/${id}`)
       console.log(res.data)
       commit('removeCards', id)
     } catch (err) {
@@ -40,10 +39,9 @@ export const actions = {
 
   async addCards ({ commit }, payload) {
     try {
-      const res = await axios.post(
-        'https://my-json-server.typicode.com/abhiraj2k/trello-clone-vue/cards',
-        payload
-      )
+      const res = await axios.post('http://localhost:3000/cards', {
+        ...payload
+      })
       console.log(res.data)
       commit('addCards', res.data)
     } catch (err) {
@@ -53,9 +51,7 @@ export const actions = {
 
   async getCards ({ commit }) {
     try {
-      const res = await axios.get(
-        'https://my-json-server.typicode.com/abhiraj2k/trello-clone-vue/cards'
-      )
+      const res = await axios.get('http://localhost:3000/cards')
       commit('setCards', res.data)
     } catch (err) {
       console.log(err)

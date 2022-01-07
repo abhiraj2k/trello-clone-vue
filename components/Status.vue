@@ -24,8 +24,10 @@
       <slot />
     </div>
     <div class="status__foot">
-      <div class="status__add-card">
-        <font-awesome-icon icon="plus" /> New
+      <div class="status__add">
+        <div class="status__add-card" @click="handleAddClick">
+          <font-awesome-icon icon="plus" /> New
+        </div>
       </div>
     </div>
   </div>
@@ -44,6 +46,7 @@ export default {
       default: ''
     }
   },
+
   methods: {
     ...mapMutations({
       changeStatus: 'card/changeStatus'
@@ -55,6 +58,11 @@ export default {
       e.target.appendChild(card)
       const statusId = e.target.id.split('_')[1]
       this.$store.commit('card/changeStatus', { cardId, statusId })
+    },
+
+    handleAddClick () {
+      const statusId = this.id.split('_')[1]
+      this.$emit('addClick', statusId)
     }
   }
 }
@@ -69,6 +77,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 5px;
     .status__name-count {
       display: flex;
     }
@@ -91,11 +100,14 @@ export default {
     padding-bottom: 20px;
   }
   .status__foot {
+    display: flex;
+    flex-direction: column;
     .status__add-card {
       color: #ccc;
       display: flex;
       align-items: center;
       cursor: pointer;
+      margin-bottom: 10px;
       svg {
         margin-right: 10px;
       }

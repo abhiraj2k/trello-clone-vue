@@ -1,11 +1,13 @@
 <template>
   <div class="main">
     <status
-      v-for="status in statuses"
+      v-for="status in status"
       :id="`status_${status.id}`"
       :key="status.id"
       :name="status.name"
       color=""
+      @addCard="handleAddCard"
+      @addClick="handleAddClick"
     >
       <card
         v-for="card in getCards(status.id)"
@@ -15,29 +17,56 @@
         {{ card.name }}
       </card>
     </status>
+    <add-card
+      v-if="showAddCard"
+      :status-id="statusId"
+      @selectedName="handleAddCard"
+      @closed="handleCloseClick"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import AddCard from '~/components/AddCard.vue'
 import Card from '~/components/Card.vue'
 import Status from '~/components/Status.vue'
 
 export default Vue.extend({
-  components: { Status, Card },
+  components: { Status, Card, AddCard },
   data () {
-    return {}
+    return {
+      showAddCard: false,
+      statusId: ''
+    }
   },
   computed: {
-    ...mapGetters({ cards: 'card/getCards', statuses: 'status/getStatus' })
+    ...mapGetters({ cards: 'card/getCards', status: 'status/getStatus' })
   },
   created () {
     this.$store.dispatch('card/getCards')
+    this.$store.dispatch('status/getStatus')
   },
   methods: {
     getCards (statusId: number) {
       return this.cards.filter((card: any) => card.statusId === statusId)
+    },
+    handleAddClick (e: any) {
+      this.showAddCard = true
+      this.statusId = e
+    },
+    handleAddCard (e: any) {
+      const tempObj = {
+        name: e,
+        statusId: parseInt(this.statusId)
+      }
+      this.$store.dispatch('card/addCards', tempObj)
+      this.$store.dispatch('card/getCards')
+    },
+    handleCloseClick () {
+      console.log('close')
+      this.showAddCard = false
     }
   }
 })
@@ -50,8 +79,7 @@ export default Vue.extend({
 }
 .main {
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
+  flex-wrap: wrap;
   min-height: 100vh;
   overflow-x: auto;
 }
