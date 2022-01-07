@@ -38,6 +38,7 @@ export const actions = {
 
   async addCards ({ commit }, payload) {
     try {
+      console.log(payload)
       const res = await axios.post('http://localhost:3000/cards', {
         ...payload
       })

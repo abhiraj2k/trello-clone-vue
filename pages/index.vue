@@ -71,7 +71,6 @@ export default Vue.extend({
       this.$store.dispatch('card/removeCards', cardId)
     },
     handleCloseClick () {
-      console.log('close')
       this.showAddCard = false
     }
   }
