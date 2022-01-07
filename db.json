@@ -1,5 +1,18 @@
 {
-  "boards": [],
+  "status": [
+    {
+      "id": 1,
+      "name": "Not Started"
+    },
+    {
+      "id": 2,
+      "name": "Pending"
+    },
+    {
+      "id": 3,
+      "name": "Not completed"
+    }
+  ],
   "cards": [
     {
       "id": 1,

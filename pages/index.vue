@@ -27,25 +27,10 @@ import Status from '~/components/Status.vue'
 export default Vue.extend({
   components: { Status, Card },
   data () {
-    return {
-      statuses: [
-        {
-          id: 1,
-          name: 'Not Started'
-        },
-        {
-          id: 2,
-          name: 'Pending'
-        },
-        {
-          id: 3,
-          name: 'Not completed'
-        }
-      ]
-    }
+    return {}
   },
   computed: {
-    ...mapGetters({ cards: 'card/getCards' })
+    ...mapGetters({ cards: 'card/getCards', statuses: 'status/getStatus' })
   },
   created () {
     this.$store.dispatch('card/getCards')
